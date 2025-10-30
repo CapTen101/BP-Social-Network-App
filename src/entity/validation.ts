@@ -1,7 +1,5 @@
 import { z } from "zod";
 
-// DTO validation at the edge of the system (request boundary).
-// Keeps the domain/service layer working with already-validated inputs.
 export const createPostSchema = z.object({
   userId: z.string().uuid().min(1),
   description: z.string().min(1).max(1000),

@@ -1,12 +1,17 @@
 import { Post } from "../../entity/models";
-import { PostsRepository } from "../repositories";
+import {
+  PostsRepository,
+} from "../repositories";
 import { UUID, randomUUID } from "crypto";
 
 export class InMemoryPostsRepository implements PostsRepository {
   private posts = new Map<UUID, Post>();
 
   create(
-    input: Post
+    input: Omit<
+      Post,
+      "id" | "createdAt" | "updatedAt" | "likeCount" | "commentCount"
+    >
   ): Post {
     const post: Post = {
       id: randomUUID(),
@@ -14,8 +19,7 @@ export class InMemoryPostsRepository implements PostsRepository {
       updatedAt: Date.now(),
       likeCount: 0,
       commentCount: 0,
-      userId: "",
-      description: ""
+      ...input,
     };
 
     this.posts.set(post.id, post);

@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+// using zod schema validation for all entities
 export const createPostSchema = z.object({
   userId: z.string().uuid().min(1),
   description: z.string().min(1).max(1000),

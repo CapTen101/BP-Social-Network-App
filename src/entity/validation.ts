@@ -1,0 +1,21 @@
+import { z } from "zod";
+
+// DTO validation at the edge of the system (request boundary).
+// Keeps the domain/service layer working with already-validated inputs.
+export const createPostSchema = z.object({
+  userId: z.string().uuid().min(1),
+  description: z.string().min(1).max(1000),
+});
+
+export const likePostSchema = z.object({
+  userId: z.string().uuid().min(1),
+});
+
+export const addCommentSchema = z.object({
+  userId: z.string().uuid().min(1),
+  text: z.string().min(1).max(500),
+});
+
+export type CreatePostInput = z.infer<typeof createPostSchema>;
+export type LikePostInput = z.infer<typeof likePostSchema>;
+export type AddCommentInput = z.infer<typeof addCommentSchema>;

@@ -70,3 +70,37 @@ export class InMemoryCommentsRepository implements CommentsRepository {
     this.comments.delete(commentId);
   }
 }
+
+export class InMemoryLikesRepository implements LikesRepository {
+  private likesByPost = new Map<UUID, Map<UUID, Like>>();
+
+  add(input: Omit<Like, "createdAt">): Like {
+    const post = this.likesByPost.get(input.postId) ?? new Map();
+    const existing = post.get(input.userId);
+    if (existing) {
+      return existing;
+    }
+
+    const like: Like = { ...input, createdAt: Date.now() };
+    post.set(input.userId, like);
+    this.likesByPost.set(input.postId, post);
+    return like;
+  }
+
+  has(postId: UUID, userId: UUID): boolean {
+    const post = this.likesByPost.get(postId);
+    if (!post) return false;
+    return post.has(userId);
+  }
+
+  count(postId: UUID): number {
+    const post = this.likesByPost.get(postId);
+    return post ? post.size : 0;
+  }
+
+  remove(postId: UUID, userId: UUID): void {
+    const post = this.likesByPost.get(postId);
+    if (!post) return;
+    post.delete(userId);
+  }
+}

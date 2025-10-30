@@ -1,4 +1,4 @@
-import { Like, Comment, Post } from "../../entity/models";
+import { Comment, Like, Post } from "../../entity/models";
 import {
   CommentsRepository,
   LikesRepository,
@@ -72,13 +72,15 @@ export class InMemoryCommentsRepository implements CommentsRepository {
 }
 
 export class InMemoryLikesRepository implements LikesRepository {
+  // only one like per post allowed by a user
+  // hence, store de-duplicated likes per post keyed by userId
   private likesByPost = new Map<UUID, Map<UUID, Like>>();
 
   add(input: Omit<Like, "createdAt">): Like {
     const post = this.likesByPost.get(input.postId) ?? new Map();
     const existing = post.get(input.userId);
     if (existing) {
-      return existing;
+      return existing; // Like already exists for (postId, userId); do not update the map
     }
 
     const like: Like = { ...input, createdAt: Date.now() };

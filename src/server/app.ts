@@ -1,0 +1,23 @@
+import express from 'express';
+import cors from 'cors';
+import morgan from 'morgan';
+
+export function createServer() {
+  const app = express();
+
+  app.use(cors()); // enable CORS for all routes
+  app.use(express.json()); // parse JSON bodies
+  app.use(morgan('dev')); // log requests to the console
+
+  // health check endpoint
+  app.get('/health', (req, res) => {
+    res.json({ status: 'ok' });
+  });
+
+  // feature routes
+  app.use('/api/v1/posts', postsRouter);
+
+  return app;
+}
+
+

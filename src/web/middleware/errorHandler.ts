@@ -5,6 +5,8 @@ import {
   ValidationError,
 } from "../../infrastructure/errors";
 
+// maps domain/application errors to HTTP responses.
+// keeps controllers thin and consistent.
 export function errorHandler(
   err: unknown,
   req: Request,
@@ -23,5 +25,5 @@ export function errorHandler(
 
   console.error("Unexpected error:", err);
 
-  return res.status(500).json({ error: "Internal Server Error" });
+  return res.status(500).json({ error: "Internal Server Error" }); // return server error if neither of the above cases are met
 }

@@ -9,8 +9,8 @@ import {
   LikesRepository,
   PostsRepository,
 } from "../infrastructure/repositories";
-import { UUID } from "crypto";
 import { ConflictError, NotFoundError } from "../infrastructure/errors";
+import { UUID } from "crypto";
 
 // Posts Service Definition (Service pattern):
 // - Encapsulates business logic for posts without exposing any persistence mechanism.

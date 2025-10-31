@@ -1,19 +1,44 @@
 import { Router } from "express";
+import { validateUUIDParam } from "../middleware/validate";
 
 export const postsRouter = Router();
 
-postsRouter.post("/", (req, res, next) => {});
+postsRouter.post("/", validateUUIDParam("postId"), (req, res, next) => {});
 
-postsRouter.get("/", (_req, res) => {});
+postsRouter.get("/", validateUUIDParam("postId"), (_req, res) => {});
 
-postsRouter.get("/:postId", (req, res, next) => {});
+postsRouter.get(
+  "/:postId",
+  validateUUIDParam("postId"),
+  (req, res, next) => {}
+);
 
-postsRouter.delete("/:postId", (req, res, next) => {});
+postsRouter.delete(
+  "/:postId",
+  validateUUIDParam("postId"),
+  (req, res, next) => {}
+);
 
-postsRouter.post("/:postId/like", (req, res, next) => {});
+postsRouter.post(
+  "/:postId/like",
+  validateUUIDParam("postId"),
+  (req, res, next) => {}
+);
 
-postsRouter.delete("/:postId/like/:userId", (req, res, next) => {});
+postsRouter.delete(
+  "/:postId/like/:userId",
+  validateUUIDParam("postId"),
+  (req, res, next) => {}
+);
 
-postsRouter.post("/:postId/comment", (req, res, next) => {});
+postsRouter.post(
+  "/:postId/comment",
+  validateUUIDParam("postId"),
+  (req, res, next) => {}
+);
 
-postsRouter.get("/:postId/comments", (req, res, next) => {});
+postsRouter.get(
+  "/:postId/comments",
+  validateUUIDParam("postId"),
+  (req, res, next) => {}
+);

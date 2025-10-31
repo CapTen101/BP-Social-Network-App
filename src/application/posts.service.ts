@@ -74,9 +74,39 @@ export class PostsService {
     return like;
   }
 
-  unlikePost(postId: UUID, userId: UUID): void {}
+  unlikePost(postId: UUID, userId: UUID): void {
+    const post = this.postsRepo.getById(postId);
+    if (!post) throw new NotFoundError("Post not found");
 
-  addComment(postId: UUID, input: AddCommentInput): Comment {}
+    if (!this.likesRepo.has(postId, userId)) return;
+    this.likesRepo.remove(postId, userId);
 
-  listComments(postId: UUID): Comment[] {}
+    post.likeCount = this.likesRepo.count(postId);
+    post.updatedAt = Date.now();
+
+    this.postsRepo.update(post);
+  }
+
+  addComment(postId: UUID, input: AddCommentInput): Comment {
+    const post = this.postsRepo.getById(postId);
+    if (!post) throw new NotFoundError("Post not found");
+
+    const comment = this.commentsRepo.add({
+      postId,
+      userId: input.userId as UUID,
+      text: input.text,
+    });
+
+    post.commentCount += 1;
+    post.updatedAt = Date.now();
+    this.postsRepo.update(post);
+    return comment;
+  }
+
+  listComments(postId: UUID): Comment[] {
+    const post = this.postsRepo.getById(postId);
+    if (!post) throw new NotFoundError("Post not found");
+
+    return this.commentsRepo.listByPost(postId);
+  }
 }

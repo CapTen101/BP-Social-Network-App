@@ -10,7 +10,7 @@ import {
   PostsRepository,
 } from "../infrastructure/repositories";
 import { UUID } from "crypto";
-import { NotFoundError } from "../infrastructure/errors";
+import { ConflictError, NotFoundError } from "../infrastructure/errors";
 
 // Posts Service Definition (Service pattern):
 // - Encapsulates business logic for posts without exposing any persistence mechanism.
@@ -56,7 +56,23 @@ export class PostsService {
     this.postsRepo.delete(postId);
   }
 
-  likePost(postId: UUID, input: LikePostInput): Like {}
+  likePost(postId: UUID, input: LikePostInput): Like {
+    const post = this.postsRepo.getById(postId);
+    if (!post) throw new NotFoundError("Post not found");
+
+    // avoid duplicate likes
+    if (this.likesRepo.has(postId, input.userId as UUID)) {
+      throw new ConflictError("User already liked this post");
+    }
+
+    const like = this.likesRepo.add({ postId, userId: input.userId as UUID });
+
+    post.likeCount = this.likesRepo.count(postId); // fetch like count from source of truth to avoid edge cases
+    post.updatedAt = Date.now();
+
+    this.postsRepo.update(post);
+    return like;
+  }
 
   unlikePost(postId: UUID, userId: UUID): void {}
 

@@ -12,7 +12,7 @@ export function createServer() {
   app.use(morgan("dev")); // log requests to the console
 
   app.get("/", (req, res) => {
-    res.json({ message: "Welcome to Social Network Application Backend!" });
+    res.send("Welcome to the Social Network Application!");
   });
 
   // health check endpoint

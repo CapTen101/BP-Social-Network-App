@@ -10,7 +10,7 @@ Simple TypeScript microservice with in-memory storage:
 
 - Node.js + TypeScript
 - Express
-- Zod for validation
+- Zod for schema validation for entities
 - Mocha, Sinon, and Chai for tests
 
 ## Getting Started
@@ -21,13 +21,7 @@ Simple TypeScript microservice with in-memory storage:
 npm install
 ```
 
-2. Run in dev
-
-```bash
-npm run dev
-```
-
-3. Build and start
+2. Build and start
 
 ```bash
 npm run build
@@ -39,16 +33,16 @@ Service listens on `https://bp-social-network-app.onrender.com/`.
 ### Health
 
 ```bash
-curl https://bp-social-network-app.onrender.com//health
+curl https://bp-social-network-app.onrender.com/health
 ```
 
-Health monitoring via: https://dashboard.uptimerobot.com/monitors/801711590
+I've used [UptimeRobot](https://uptimerobot.com/) to perform health monitoring: https://stats.uptimerobot.com/5KtXbR6uN5
 
 ## API
 
 ![API Collection image](https://github.com/CapTen101/BP-Social-Network-App/blob/main/assets/APIs.png)
 
-Base URL: `https://bp-social-network-app.onrender.com//posts`
+Base Hosted URL: `https://bp-social-network-app.onrender.com/api/v1/posts`
 
 All `postId` and `userId` path parameters must be valid UUIDs. Invalid UUIDs will return a `400 Bad Request` error.
 
@@ -98,7 +92,7 @@ Content-Type: application/json
 **Example:**
 
 ```bash
-curl -X POST https://bp-social-network-app.onrender.com//posts \
+curl -X POST https://bp-social-network-app.onrender.com/api/v1/posts \
   -H 'Content-Type: application/json' \
   -d '{"userId":"550e8400-e29b-41d4-a716-446655440000","description":"Hello world!"}'
 ```
@@ -143,7 +137,7 @@ GET /posts
 **Example:**
 
 ```bash
-curl https://bp-social-network-app.onrender.com//posts
+curl https://bp-social-network-app.onrender.com/api/v1/posts
 ```
 
 ---
@@ -184,7 +178,7 @@ GET /posts/:postId
 **Example:**
 
 ```bash
-curl https://bp-social-network-app.onrender.com//posts/123e4567-e89b-12d3-a456-426614174000
+curl https://bp-social-network-app.onrender.com/api/v1/posts/123e4567-e89b-12d3-a456-426614174000
 ```
 
 ---
@@ -213,7 +207,7 @@ DELETE /posts/:postId
 **Example:**
 
 ```bash
-curl -X DELETE https://bp-social-network-app.onrender.com//posts/123e4567-e89b-12d3-a456-426614174000
+curl -X DELETE https://bp-social-network-app.onrender.com/api/v1/posts/123e4567-e89b-12d3-a456-426614174000
 ```
 
 ---
@@ -264,7 +258,7 @@ Content-Type: application/json
 **Example:**
 
 ```bash
-curl -X POST https://bp-social-network-app.onrender.com//posts/123e4567-e89b-12d3-a456-426614174000/like \
+curl -X POST https://bp-social-network-app.onrender.com/api/v1/posts/123e4567-e89b-12d3-a456-426614174000/like \
   -H 'Content-Type: application/json' \
   -d '{"userId":"660e8400-e29b-41d4-a716-446655440002"}'
 ```
@@ -296,7 +290,7 @@ DELETE /posts/:postId/like/:userId
 **Example:**
 
 ```bash
-curl -X DELETE https://bp-social-network-app.onrender.com//posts/123e4567-e89b-12d3-a456-426614174000/like/660e8400-e29b-41d4-a716-446655440002
+curl -X DELETE https://bp-social-network-app.onrender.com/api/v1/posts/123e4567-e89b-12d3-a456-426614174000/like/660e8400-e29b-41d4-a716-446655440002
 ```
 
 ---
@@ -350,7 +344,7 @@ Content-Type: application/json
 **Example:**
 
 ```bash
-curl -X POST https://bp-social-network-app.onrender.com//posts/123e4567-e89b-12d3-a456-426614174000/comment \
+curl -X POST https://bp-social-network-app.onrender.com/api/v1/posts/123e4567-e89b-12d3-a456-426614174000/comment \
   -H 'Content-Type: application/json' \
   -d '{"userId":"660e8400-e29b-41d4-a716-446655440002","text":"Great post!"}'
 ```
@@ -400,7 +394,7 @@ GET /posts/:postId/comments
 **Example:**
 
 ```bash
-curl https://bp-social-network-app.onrender.com//posts/123e4567-e89b-12d3-a456-426614174000/comments
+curl https://bp-social-network-app.onrender.com/api/v1/posts/123e4567-e89b-12d3-a456-426614174000/comments
 ```
 
 ---

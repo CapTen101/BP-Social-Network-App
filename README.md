@@ -192,29 +192,44 @@ curl https://bp-social-network-app.onrender.com/api/v1/posts/7982bfb7-1780-4828-
 
 ### Delete Post
 
-Deletes a post by its ID.
+Deletes a post by its ID. Only the post owner can delete their post.
 
 **Request:**
 
 ```http
 DELETE /posts/:postId
+Content-Type: application/json
 ```
 
 **Path Parameters:**
 
 - `postId`: UUID of the post to delete
 
+**Request Body:**
+
+```json
+{
+  "userId": "550e8400-e29b-41d4-a716-446655440000"
+}
+```
+
+**Validation Rules:**
+
+- `userId`: Required, must be a valid UUID. Must match the owner of the post.
+
 **Response:** `204 No Content`
 
 **Error Responses:**
 
-- `400 Bad Request`: Invalid UUID format for `postId`
+- `400 Bad Request`: Invalid UUID format for `postId`, missing or invalid `userId`, or user is not the post owner
 - `404 Not Found`: Post not found
 
 **Example:**
 
 ```bash
-curl -X DELETE https://bp-social-network-app.onrender.com/api/v1/posts/123e4567-e89b-12d3-a456-426614174000
+curl -X DELETE https://bp-social-network-app.onrender.com/api/v1/posts/123e4567-e89b-12d3-a456-426614174000 \
+  -H 'Content-Type: application/json' \
+  -d '{"userId":"550e8400-e29b-41d4-a716-446655440000"}'
 ```
 
 ---

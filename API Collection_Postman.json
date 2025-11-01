@@ -180,7 +180,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "",
+          "raw": "{\n  \"userId\": \"6e74035b-7019-4414-8bbc-880d673cad68\"\n}",
           "options": {
             "raw": {
               "language": "json"

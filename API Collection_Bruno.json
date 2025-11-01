@@ -147,7 +147,7 @@
         "params": [],
         "body": {
           "mode": "json",
-          "json": "",
+          "json": "{\n  \"userId\": \"6e74035b-7019-4414-8bbc-880d673cad68\"\n}",
           "formUrlEncoded": [],
           "multipartForm": [],
           "file": []

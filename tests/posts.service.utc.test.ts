@@ -70,12 +70,12 @@ describe("PostsService", () => {
 
   it("throws on missing post", () => {
     const svc = makeService();
-    expect(() => svc.getPost("missing" as any)).to.throw(NotFoundError);
-    expect(() => svc.likePost("missing" as any, { userId: likerId })).to.throw(
+    expect(() => svc.getPost("missing" as UUID)).to.throw(NotFoundError);
+    expect(() => svc.likePost("missing" as UUID, { userId: likerId })).to.throw(
       NotFoundError
     );
     expect(() =>
-      svc.addComment("missing" as any, { userId: authorId, text: "x" })
+      svc.addComment("missing" as UUID, { userId: authorId, text: "x" })
     ).to.throw(NotFoundError);
   });
 });

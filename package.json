@@ -8,10 +8,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "start": "node dist/index.js",
-    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
-    "test": "mocha",
-    "test:watch": "mocha --watch",
-    "lint": "eslint \"src/**/*.{ts,tsx}\"",
+    "test": "mocha -r ts-node/register 'tests/**/*.test.ts'",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "keywords": [
@@ -39,13 +36,12 @@
     "@types/morgan": "^1.9.7",
     "@types/node": "^20.11.30",
     "@types/sinon": "^17.0.3",
+    "@types/supertest": "^6.0.2",
     "@types/uuid": "^9.0.8",
     "chai": "^4.4.1",
-    "eslint": "^8.57.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-import": "^2.29.1",
     "mocha": "^10.4.0",
     "sinon": "^17.0.1",
+    "supertest": "^7.0.0",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.6.2"

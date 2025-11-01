@@ -14,6 +14,9 @@ function createServer() {
     app.use((0, cors_1.default)()); // enable CORS for all routes
     app.use(express_1.default.json()); // parse JSON bodies
     app.use((0, morgan_1.default)("dev")); // log requests to the console
+    app.get("/", (req, res) => {
+        res.json({ message: "Welcome to Social Network Application Backend!" });
+    });
     // health check endpoint
     app.get("/health", (req, res) => {
         res.json({ status: "ok" });

@@ -11,13 +11,13 @@ export function createServer() {
   app.use(express.json()); // parse JSON bodies
   app.use(morgan("dev")); // log requests to the console
 
+  app.get("/", (req, res) => {
+    res.json({ message: "Welcome to Social Network Application Backend!" });
+  });
+
   // health check endpoint
   app.get("/health", (req, res) => {
     res.json({ status: "ok" });
-  });
-
-  app.get("/", (req, res) => {
-    res.json({ message: "Welcome to Social Network Application!" });
   });
 
   // feature routes

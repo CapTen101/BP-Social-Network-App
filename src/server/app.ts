@@ -16,7 +16,7 @@ export function createServer() {
     res.json({ status: "ok" });
   });
 
-  app.get("/health", (req, res) => {
+  app.get("/", (req, res) => {
     res.json({ message: "Welcome to Social Network Application" });
   });
 

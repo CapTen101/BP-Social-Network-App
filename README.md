@@ -40,6 +40,13 @@ I've used [UptimeRobot](https://uptimerobot.com/) to perform health monitoring: 
 
 ## API
 
+I've uploaded the API collection for both **Bruno** and **Postman** API client:
+
+- Bruno: `./API Collection_Bruno.json`
+- Postman: `./API Collection_Postman.json`
+
+Just download any of the two and import to start using the below mentioned APIs!
+
 ![API Collection image](https://github.com/CapTen101/BP-Social-Network-App/blob/main/assets/APIs.png)
 
 Base Hosted URL: `https://bp-social-network-app.onrender.com/api/v1/posts`

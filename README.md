@@ -160,7 +160,7 @@ GET /posts/:postId
 
 ```json
 {
-  "id": "123e4567-e89b-12d3-a456-426614174000",
+  "id": "7982bfb7-1780-4828-8ed6-278d468e08c6",
   "userId": "550e8400-e29b-41d4-a716-446655440000",
   "description": "This is my first post!",
   "createdAt": 1704067200000,
@@ -178,7 +178,7 @@ GET /posts/:postId
 **Example:**
 
 ```bash
-curl https://bp-social-network-app.onrender.com/api/v1/posts/123e4567-e89b-12d3-a456-426614174000
+curl https://bp-social-network-app.onrender.com/api/v1/posts/7982bfb7-1780-4828-8ed6-278d468e08c6
 ```
 
 ---
@@ -243,7 +243,7 @@ Content-Type: application/json
 
 ```json
 {
-  "postId": "123e4567-e89b-12d3-a456-426614174000",
+  "postId": "7982bfb7-1780-4828-8ed6-278d468e08c6",
   "userId": "660e8400-e29b-41d4-a716-446655440002",
   "createdAt": 1704067300000
 }
@@ -258,7 +258,7 @@ Content-Type: application/json
 **Example:**
 
 ```bash
-curl -X POST https://bp-social-network-app.onrender.com/api/v1/posts/123e4567-e89b-12d3-a456-426614174000/like \
+curl -X POST https://bp-social-network-app.onrender.com/api/v1/posts/7982bfb7-1780-4828-8ed6-278d468e08c6/like \
   -H 'Content-Type: application/json' \
   -d '{"userId":"660e8400-e29b-41d4-a716-446655440002"}'
 ```
@@ -290,7 +290,7 @@ DELETE /posts/:postId/like/:userId
 **Example:**
 
 ```bash
-curl -X DELETE https://bp-social-network-app.onrender.com/api/v1/posts/123e4567-e89b-12d3-a456-426614174000/like/660e8400-e29b-41d4-a716-446655440002
+curl -X DELETE https://bp-social-network-app.onrender.com/api/v1/posts/7982bfb7-1780-4828-8ed6-278d468e08c6/like/660e8400-e29b-41d4-a716-446655440002
 ```
 
 ---
@@ -329,7 +329,7 @@ Content-Type: application/json
 ```json
 {
   "id": "789e4567-e89b-12d3-a456-426614174003",
-  "postId": "123e4567-e89b-12d3-a456-426614174000",
+  "postId": "7982bfb7-1780-4828-8ed6-278d468e08c6",
   "userId": "660e8400-e29b-41d4-a716-446655440002",
   "text": "Great post! Thanks for sharing.",
   "createdAt": 1704067400000
@@ -344,7 +344,7 @@ Content-Type: application/json
 **Example:**
 
 ```bash
-curl -X POST https://bp-social-network-app.onrender.com/api/v1/posts/123e4567-e89b-12d3-a456-426614174000/comment \
+curl -X POST https://bp-social-network-app.onrender.com/api/v1/posts/7982bfb7-1780-4828-8ed6-278d468e08c6/comment \
   -H 'Content-Type: application/json' \
   -d '{"userId":"660e8400-e29b-41d4-a716-446655440002","text":"Great post!"}'
 ```
@@ -371,14 +371,14 @@ GET /posts/:postId/comments
 [
   {
     "id": "789e4567-e89b-12d3-a456-426614174003",
-    "postId": "123e4567-e89b-12d3-a456-426614174000",
+    "postId": "7982bfb7-1780-4828-8ed6-278d468e08c6",
     "userId": "660e8400-e29b-41d4-a716-446655440002",
     "text": "Great post! Thanks for sharing.",
     "createdAt": 1704067400000
   },
   {
     "id": "889e4567-e89b-12d3-a456-426614174004",
-    "postId": "123e4567-e89b-12d3-a456-426614174000",
+    "postId": "7982bfb7-1780-4828-8ed6-278d468e08c6",
     "userId": "770e8400-e29b-41d4-a716-446655440003",
     "text": "I totally agree!",
     "createdAt": 1704067500000
@@ -394,7 +394,7 @@ GET /posts/:postId/comments
 **Example:**
 
 ```bash
-curl https://bp-social-network-app.onrender.com/api/v1/posts/123e4567-e89b-12d3-a456-426614174000/comments
+curl https://bp-social-network-app.onrender.com/api/v1/posts/7982bfb7-1780-4828-8ed6-278d468e08c6/comments
 ```
 
 ---

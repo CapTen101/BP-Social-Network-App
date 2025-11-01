@@ -70,6 +70,12 @@ export function createPostsRouter(
       service.deletePost(postId, userId);
       res.status(204).send();
     } catch (e) {
+      // Translating zod validation errors into our custom ValidationError type
+      if (e instanceof z.ZodError)
+        return next(
+          new ValidationError(e.errors.map((er) => er.message).join(", "))
+        );
+
       next(e);
     }
   });

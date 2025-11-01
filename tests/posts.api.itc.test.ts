@@ -213,6 +213,67 @@ describe("Posts API Integration Tests", () => {
             await request(app).get(`/api/v1/posts/${postId}`).send({ userId: validUserId }).expect(404);
         });
 
+        it("should return 400 when non-owner tries to delete post", async () => {
+            const createResponse = await request(app)
+                .post("/api/v1/posts")
+                .send({
+                    userId: validUserId,
+                    description: "Post to delete",
+                })
+                .expect(201);
+
+            const postId = createResponse.body.id;
+
+            const response = await request(app)
+                .delete(`/api/v1/posts/${postId}`)
+                .send({ userId: validUserId2 })
+                .expect(400);
+
+            expect(response.body).to.have.property("error");
+            expect(response.body.error).to.include("Only the post owner can delete the post");
+
+            // Verify post still exists
+            await request(app).get(`/api/v1/posts/${postId}`).expect(200);
+        });
+
+        it("should return 400 for missing userId in request body", async () => {
+            const createResponse = await request(app)
+                .post("/api/v1/posts")
+                .send({
+                    userId: validUserId,
+                    description: "Post",
+                })
+                .expect(201);
+
+            const postId = createResponse.body.id;
+
+            const response = await request(app)
+                .delete(`/api/v1/posts/${postId}`)
+                .send({})
+                .expect(400);
+
+            expect(response.body).to.have.property("error");
+        });
+
+        it("should return 400 for invalid userId format", async () => {
+            const createResponse = await request(app)
+                .post("/api/v1/posts")
+                .send({
+                    userId: validUserId,
+                    description: "Post",
+                })
+                .expect(201);
+
+            const postId = createResponse.body.id;
+
+            const response = await request(app)
+                .delete(`/api/v1/posts/${postId}`)
+                .send({ userId: "invalid-uuid" })
+                .expect(400);
+
+            expect(response.body).to.have.property("error");
+        });
+
         it("should return 404 for non-existent post", async () => {
             const fakeId = "123e4567-e89b-12d3-a456-426614174000";
             await request(app).delete(`/api/v1/posts/${fakeId}`).send({ userId: validUserId }).expect(404);

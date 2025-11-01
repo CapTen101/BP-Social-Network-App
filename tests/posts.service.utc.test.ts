@@ -6,7 +6,7 @@ import {
   InMemoryPostsRepository,
 } from "../src/infrastructure/memory/InMemoryRepositories";
 import { PostsService } from "../src/application/posts.service";
-import { ConflictError, NotFoundError } from "../src/infrastructure/errors";
+import { ConflictError, NotFoundError, ValidationError } from "../src/infrastructure/errors";
 
 describe("PostsService", () => {
   const authorId = "00000000-0000-0000-0000-000000000001" as UUID;
@@ -77,5 +77,51 @@ describe("PostsService", () => {
     expect(() =>
       svc.addComment("missing" as UUID, { userId: authorId, text: "x" })
     ).to.throw(NotFoundError);
+  });
+
+  describe("deletePost", () => {
+    it("should delete a post when called by owner", () => {
+      const svc = makeService();
+      const post = svc.createPost({
+        userId: authorId,
+        description: "Post to delete",
+      });
+      const postId = post.id;
+
+      // Verify post exists
+      expect(svc.getPost(postId)).to.exist;
+
+      // Delete as owner
+      svc.deletePost(postId, authorId);
+
+      // Verify post is deleted
+      expect(() => svc.getPost(postId)).to.throw(NotFoundError);
+    });
+
+    it("should throw ValidationError when non-owner tries to delete post", () => {
+      const svc = makeService();
+      const nonOwnerId = "00000000-0000-0000-0000-000000000003" as UUID;
+      const post = svc.createPost({
+        userId: authorId,
+        description: "Post to delete",
+      });
+      const postId = post.id;
+
+      // Try to delete as non-owner
+      expect(() => svc.deletePost(postId, nonOwnerId)).to.throw(
+        ValidationError,
+        "Only the post owner can delete the post"
+      );
+
+      // Verify post still exists
+      expect(svc.getPost(postId)).to.exist;
+    });
+
+    it("should throw NotFoundError when deleting non-existent post", () => {
+      const svc = makeService();
+      const fakeId = "00000000-0000-0000-0000-000000000999" as UUID;
+
+      expect(() => svc.deletePost(fakeId, authorId)).to.throw(NotFoundError);
+    });
   });
 });

@@ -9,7 +9,7 @@ import {
   LikesRepository,
   PostsRepository,
 } from "../infrastructure/repositories";
-import { ConflictError, NotFoundError } from "../infrastructure/errors";
+import { ConflictError, NotFoundError, ValidationError } from "../infrastructure/errors";
 import { UUID } from "crypto";
 
 // Posts Service Definition (Service pattern):
@@ -32,6 +32,7 @@ export class PostsService {
   }
 
   createPost(input: CreatePostInput): Post {
+    // userId is validated as UUID by Zod schema, safe to cast
     const post = this.postsRepo.create({
       userId: input.userId as UUID,
       description: input.description,
@@ -50,9 +51,12 @@ export class PostsService {
     return this.postsRepo.list();
   }
 
-  deletePost(postId: UUID): void {
+  deletePost(postId: UUID, userId: UUID): void {
     const post = this.postsRepo.getById(postId);
     if (!post) throw new NotFoundError("Post not found");
+    if (post.userId !== userId)
+      throw new ValidationError("Only the post owner can delete the post!");
+
     this.postsRepo.delete(postId);
   }
 
@@ -61,11 +65,13 @@ export class PostsService {
     if (!post) throw new NotFoundError("Post not found");
 
     // avoid duplicate likes
-    if (this.likesRepo.has(postId, input.userId as UUID)) {
+    // userId is validated as UUID by Zod schema, safe to cast
+    const userId = input.userId as UUID;
+    if (this.likesRepo.has(postId, userId)) {
       throw new ConflictError("User already liked this post");
     }
 
-    const like = this.likesRepo.add({ postId, userId: input.userId as UUID });
+    const like = this.likesRepo.add({ postId, userId });
 
     post.likeCount = this.likesRepo.count(postId); // fetch like count from source of truth to avoid edge cases
     post.updatedAt = Date.now();
@@ -91,6 +97,7 @@ export class PostsService {
     const post = this.postsRepo.getById(postId);
     if (!post) throw new NotFoundError("Post not found");
 
+    // userId is validated as UUID by Zod schema, safe to cast
     const comment = this.commentsRepo.add({
       postId,
       userId: input.userId as UUID,

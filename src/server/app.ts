@@ -1,8 +1,13 @@
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
-import { postsRouter } from "../web/routes/posts.routes";
+import { createPostsRouter } from "../web/routes/posts.routes";
 import { errorHandler } from "../web/middleware/errorHandler";
+import {
+  InMemoryCommentsRepository,
+  InMemoryLikesRepository,
+  InMemoryPostsRepository,
+} from "../infrastructure/memory/InMemoryRepositories";
 
 export function createServer() {
   const app = express();
@@ -20,8 +25,16 @@ export function createServer() {
     res.json({ status: "ok" });
   });
 
-  // feature routes
-  app.use("/api/v1/posts", postsRouter);
+  // Initialize repositories
+  const postsRepo = new InMemoryPostsRepository();
+  const commentsRepo = new InMemoryCommentsRepository();
+  const likesRepo = new InMemoryLikesRepository();
+
+  // feature routes - using factory pattern for dependency injection
+  app.use(
+    "/api/v1/posts",
+    createPostsRouter(postsRepo, commentsRepo, likesRepo)
+  );
 
   // centralized error handling
   app.use(errorHandler);

@@ -15,6 +15,11 @@ export const addCommentSchema = z.object({
   text: z.string().min(1).max(500),
 });
 
+export const deletePostSchema = z.object({
+  userId: z.string().uuid().min(1),
+});
+
 export type CreatePostInput = z.infer<typeof createPostSchema>;
 export type LikePostInput = z.infer<typeof likePostSchema>;
 export type AddCommentInput = z.infer<typeof addCommentSchema>;
+export type DeletePostInput = z.infer<typeof deletePostSchema>;

@@ -42,6 +42,8 @@ Service listens on `https://bp-social-network-app.onrender.com/`.
 curl https://bp-social-network-app.onrender.com//health
 ```
 
+Health monitoring via: https://dashboard.uptimerobot.com/monitors/801711590
+
 ## API
 
 ![API Collection image](https://github.com/CapTen101/BP-Social-Network-App/blob/main/assets/APIs.png)

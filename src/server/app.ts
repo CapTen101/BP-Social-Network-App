@@ -17,7 +17,7 @@ export function createServer() {
   });
 
   app.get("/", (req, res) => {
-    res.json({ message: "Welcome to Social Network Application" });
+    res.json({ message: "Welcome to Social Network Application!" });
   });
 
   // feature routes

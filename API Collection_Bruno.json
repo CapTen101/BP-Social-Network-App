@@ -13,7 +13,7 @@
       },
       "tags": [],
       "request": {
-        "url": "http://localhost:3000/health",
+        "url": "https://bp-social-network-app.onrender.com/health",
         "method": "GET",
         "headers": [],
         "params": [],
@@ -45,7 +45,7 @@
       },
       "tags": [],
       "request": {
-        "url": "http://localhost:3000/api/v1/posts",
+        "url": "https://bp-social-network-app.onrender.com/api/v1/posts",
         "method": "POST",
         "headers": [],
         "params": [],
@@ -77,7 +77,7 @@
       },
       "tags": [],
       "request": {
-        "url": "http://localhost:3000/api/v1/posts",
+        "url": "https://bp-social-network-app.onrender.com/api/v1/posts",
         "method": "GET",
         "headers": [],
         "params": [],
@@ -109,7 +109,7 @@
       },
       "tags": [],
       "request": {
-        "url": "http://localhost:3000/api/v1/posts/6f59d5a3-6c9c-4150-b817-de3fde19edb0",
+        "url": "https://bp-social-network-app.onrender.com/api/v1/posts/bd040783-cffd-47df-8830-e342ffb226bf",
         "method": "GET",
         "headers": [],
         "params": [],
@@ -141,7 +141,7 @@
       },
       "tags": [],
       "request": {
-        "url": "http://localhost:3000/api/v1/posts/6f59d5a3-6c9c-4150-b817-de3fde19edb0",
+        "url": "https://bp-social-network-app.onrender.com/api/v1/posts/6f59d5a3-6c9c-4150-b817-de3fde19edb0",
         "method": "DELETE",
         "headers": [],
         "params": [],
@@ -173,7 +173,7 @@
       },
       "tags": [],
       "request": {
-        "url": "http://localhost:3000/api/v1/posts/3ce7645c-49bb-4977-b7f9-4400dae6d9dd/like/",
+        "url": "https://bp-social-network-app.onrender.com/api/v1/posts/bd040783-cffd-47df-8830-e342ffb226bf/like/",
         "method": "POST",
         "headers": [],
         "params": [],
@@ -205,7 +205,7 @@
       },
       "tags": [],
       "request": {
-        "url": "http://localhost:3000/api/v1/posts/3ce7645c-49bb-4977-b7f9-4400dae6d9dd/like/6e74035b-7019-4414-8bbc-880d673cad68",
+        "url": "https://bp-social-network-app.onrender.com/api/v1/posts/bd040783-cffd-47df-8830-e342ffb226bf/like/6e74035b-7019-4414-8bbc-880d673cad68",
         "method": "DELETE",
         "headers": [],
         "params": [],
@@ -237,13 +237,13 @@
       },
       "tags": [],
       "request": {
-        "url": "http://localhost:3000/api/v1/posts/3ce7645c-49bb-4977-b7f9-4400dae6d9dd/comment/",
+        "url": "https://bp-social-network-app.onrender.com/api/v1/posts/bd040783-cffd-47df-8830-e342ffb226bf/comment/",
         "method": "POST",
         "headers": [],
         "params": [],
         "body": {
           "mode": "json",
-          "json": "{\n  \"userId\": \"6e74035b-7019-4414-8bbc-880d673cad68\",\n  \"text\": \"random comment 4\"\n}",
+          "json": "{\n  \"userId\": \"6e74035b-7019-4414-8bbc-880d673cad68\",\n  \"text\": \"random comment 3\"\n}",
           "formUrlEncoded": [],
           "multipartForm": [],
           "file": []
@@ -269,7 +269,7 @@
       },
       "tags": [],
       "request": {
-        "url": "http://localhost:3000/api/v1/posts/3ce7645c-49bb-4977-b7f9-4400dae6d9dd/comments/",
+        "url": "https://bp-social-network-app.onrender.com/api/v1/posts/bd040783-cffd-47df-8830-e342ffb226bf/comments/",
         "method": "GET",
         "headers": [],
         "params": [],

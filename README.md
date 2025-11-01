@@ -38,6 +38,8 @@ curl http://localhost:3000/health
 
 ## API
 
+![API Collection image](https://github.com/CapTen101/BP-Social-Network-App/blob/main/assets/APIs.png)
+
 Base URL: `http://localhost:3000/posts`
 
 All `postId` and `userId` path parameters must be valid UUIDs. Invalid UUIDs will return a `400 Bad Request` error.

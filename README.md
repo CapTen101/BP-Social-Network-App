@@ -263,7 +263,7 @@ GET /posts/:postId
 **Example:**
 
 ```bash
-curl https://bp-social-network-app.onrender.com/api/v1/posts/7982bfb7-1780-4828-8ed6-278d468e08c6
+curl https://bp-social-network-app.onrender.com/api/v1/posts/5f5ff573-c092-4360-a629-d03bf2d583e8
 ```
 
 ---
@@ -305,7 +305,7 @@ Content-Type: application/json
 **Example:**
 
 ```bash
-curl -X DELETE https://bp-social-network-app.onrender.com/api/v1/posts/123e4567-e89b-12d3-a456-426614174000 \
+curl -X DELETE https://bp-social-network-app.onrender.com/api/v1/posts/5f5ff573-c092-4360-a629-d03bf2d583e8 \
   -H 'Content-Type: application/json' \
   -d '{"userId":"550e8400-e29b-41d4-a716-446655440000"}'
 ```
@@ -358,7 +358,7 @@ Content-Type: application/json
 **Example:**
 
 ```bash
-curl -X POST https://bp-social-network-app.onrender.com/api/v1/posts/7982bfb7-1780-4828-8ed6-278d468e08c6/like \
+curl -X POST https://bp-social-network-app.onrender.com/api/v1/posts/5f5ff573-c092-4360-a629-d03bf2d583e8/like \
   -H 'Content-Type: application/json' \
   -d '{"userId":"660e8400-e29b-41d4-a716-446655440002"}'
 ```
@@ -390,7 +390,7 @@ DELETE /posts/:postId/like/:userId
 **Example:**
 
 ```bash
-curl -X DELETE https://bp-social-network-app.onrender.com/api/v1/posts/7982bfb7-1780-4828-8ed6-278d468e08c6/like/660e8400-e29b-41d4-a716-446655440002
+curl -X DELETE https://bp-social-network-app.onrender.com/api/v1/posts/5f5ff573-c092-4360-a629-d03bf2d583e8/like/660e8400-e29b-41d4-a716-446655440002
 ```
 
 ---
@@ -444,7 +444,7 @@ Content-Type: application/json
 **Example:**
 
 ```bash
-curl -X POST https://bp-social-network-app.onrender.com/api/v1/posts/7982bfb7-1780-4828-8ed6-278d468e08c6/comment \
+curl -X POST https://bp-social-network-app.onrender.com/api/v1/posts/5f5ff573-c092-4360-a629-d03bf2d583e8/comment \
   -H 'Content-Type: application/json' \
   -d '{"userId":"660e8400-e29b-41d4-a716-446655440002","text":"Great post!"}'
 ```
@@ -494,7 +494,7 @@ GET /posts/:postId/comments
 **Example:**
 
 ```bash
-curl https://bp-social-network-app.onrender.com/api/v1/posts/7982bfb7-1780-4828-8ed6-278d468e08c6/comments
+curl https://bp-social-network-app.onrender.com/api/v1/posts/5f5ff573-c092-4360-a629-d03bf2d583e8/comments
 ```
 
 ---

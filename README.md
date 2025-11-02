@@ -13,6 +13,84 @@ Simple TypeScript microservice with in-memory storage:
 - Zod for schema validation for entities
 - Mocha, Sinon, and Chai for tests
 
+## Architecture & Design
+
+The project follows a layered architecture with clear separation of concerns:
+
+- Web Layer (routes/middleware) - handles HTTP requests/responses
+- Application Layer (services) - contains business logic
+- Entity Layer (models/validation) - defines entities and validation rules
+- Infrastructure Layer (repositories) - abstracts data access
+
+This structure makes the code testable and maintainable. Each layer can be tested independently, and changes in one layer don't affect others.
+
+### Design Patterns Used
+
+**Repository Pattern**
+- Data access is abstracted behind interfaces (PostsRepository, CommentsRepository, LikesRepository)
+- Currently using in-memory storage, but can easily swap to a database later
+
+**Factory Pattern**
+- Using `createPostsRouter()` and `createServer()` functions initialising different repositories
+
+**Service Pattern**
+- Our PostsService contains the entire business logic instead of residing directly in routes
+- Routes -> services -> repositories (separation of concerns between layers)
+
+**Dependency Injection**
+- Dependencies are injected through constructors
+
+**Middleware Pattern**
+- Using ErrorHandler and validateUUIDParam() for validating schema via middleware pattern
+
+**Chain Of Responsibility Pattern**
+- Express.JS beautifully implements the COR pattern via the `app.use()` & `next()` call inside the routes.
+- Multiple handlers/routers can be 'chained' together to achieve modular functionality.
+
+### Code Quality
+
+**Type Safety**
+- Using TypeScript in strict mode
+- Zod schemas for runtime validation
+- Using UUIDv4 from node's `crypto` package (minimal collisions between generated IDs) 
+
+**Error Handling**
+- Declared custom error classes (NotFoundError, ValidationError, ConflictError) for better error handling
+- Centralized error handler maps errors to HTTP status codes
+
+### Testing
+
+The project has comprehensive test coverage (34 tests in total):
+
+**Unit Tests** (posts.service.utc.test.ts)
+- Test pure business logic in isolation
+
+**Integration Tests** (posts.api.itc.test.ts)
+- Test API behavior end-to-end
+
+### Technical Decisions
+
+**In-Memory Storage**
+- Chose in-memory data atructures for simplicity and fast development
+- Repository pattern makes it easy to swap to a database later
+- Good for the current purpose of Assignment/MVP/demo
+
+**Zod for Validation**
+- Provides type-safe validation
+
+**Factory Functions**
+- Better for testing (can inject dependencies)
+- Avoids singleton patterns
+- More flexible approach
+
+**Custom Error Classes**
+- Easy to map to HTTP status codes
+
+### Performance
+
+- Using Map data structures for O(1) constant time access
+- Idempotent operations (safe to retry)
+
 ## Getting Started
 
 1. Install dependencies
@@ -438,14 +516,9 @@ All error responses follow this format:
 - `409 Conflict`: Business rule violation (e.g., duplicate like)
 - `500 Internal Server Error`: Unexpected server errors
 
-## Design Notes
-
-- Layered architecture: domain models → repositories → services → routes/controllers.
-- In-memory repositories implement repository interfaces and can be swapped later.
-- Services encapsulate business rules (e.g., no double-like, counters update).
-- Zod validates request DTOs; custom errors map to HTTP responses.
-
 ## Tests
+
+Run tests with:
 
 ```bash
 npm test
@@ -462,7 +535,3 @@ src/
   server/            # express app
   web/               # routes + middleware
 ```
-
-## License
-
-MIT

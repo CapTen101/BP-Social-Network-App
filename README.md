@@ -106,7 +106,7 @@ npm run build
 npm start
 ```
 
-Service listens on `https://bp-social-network-app.onrender.com/`.
+Service listens on https://bp-social-network-app.onrender.com
 
 ### Health
 
